@@ -5,8 +5,9 @@ let preloader, header, mobileMenuBtn, navMenu, navLinks, dropdowns, backToTopBtn
 let donationModal, modalClose, galleryModal, galleryModalClose, galleryModalImg, galleryModalCaption;
 let contactForm, themeToggle;
 let carouselTrack, carouselPrev, carouselNext, carouselIndicators;
+let aboutCarouselTrack, aboutCarouselIndicators, aboutCurrentSlideIndex = 0, aboutCarouselInterval;
 
-// Données du carousel
+// Données du carousel principal
 const carouselImages = [
     {
         url: '/static/images/IMG-20251212-WA0000.jpg',
@@ -40,6 +41,16 @@ const carouselImages = [
     }
 ];
 
+// Images pour la section "À propos de nous"
+const aboutImages = [
+    '/static/images/IMG-20251212-WA0000.jpg',
+    '/static/images/IMG-20251212-WA0005.jpg',
+    '/static/images/Screenshot_20251211-124109.png',
+    '/static/images/IMG-20251212-WA0002.jpg',
+    '/static/images/Screenshot_20251211-124304.png',
+    '/static/images/IMG-20251212-WA0003.jpg'
+];
+
 let currentSlideIndex = 0;
 let isMobile = false;
 let touchStartX = 0;
@@ -58,11 +69,18 @@ document.addEventListener('DOMContentLoaded', function() {
     watchThemeChanges();
     setupEventListeners();
     
-    // Initialiser le carousel
+    // Initialiser les carousels
     initCarousel();
+    initAboutCarousel();
 
     // Initialiser les images d'équipe centrées
     centerTeamImages();
+
+    // Initialiser la section "À propos de nous"
+    initAboutSection();
+
+    // Initialiser la section "Notre impact"
+    initImpactSection();
 
     // -------------------------------------------------------------------------
     // AJOUT : Partie pour l'ENREGISTREMENT des messages dans Django
@@ -161,6 +179,8 @@ function initVariables() {
     carouselPrev = document.getElementById('carouselPrev');
     carouselNext = document.getElementById('carouselNext');
     carouselIndicators = document.getElementById('carouselIndicators');
+    aboutCarouselTrack = document.getElementById('aboutCarouselTrack');
+    aboutCarouselIndicators = document.getElementById('aboutCarouselIndicators');
 }
 
 // =====================================================================
@@ -286,6 +306,12 @@ function setupEventListeners() {
 
     // Redimensionnement de la fenêtre
     window.addEventListener('resize', handleResize);
+
+    // Impact section form mobile optimization
+    const impactForm = document.querySelector('#impact .impact-form');
+    if (impactForm) {
+        optimizeImpactFormForMobile(impactForm);
+    }
 }
 
 // =====================================================================
@@ -295,6 +321,8 @@ function handleWindowLoad() {
     setTimeout(() => {
         if (preloader) preloader.classList.add('hidden');
         animateCounters();
+        // Démarrer le carousel "À propos" après le chargement
+        startAboutCarousel();
     }, 1000);
 }
 
@@ -524,6 +552,12 @@ function handleResize() {
         mobileMenuBtn.classList.remove('active');
         document.body.style.overflow = '';
     }
+    
+    // Ré-optimiser le formulaire d'impact pour mobile
+    const impactForm = document.querySelector('#impact .impact-form');
+    if (impactForm) {
+        optimizeImpactFormForMobile(impactForm);
+    }
 }
 
 // =====================================================================
@@ -574,7 +608,7 @@ function watchThemeChanges() {
 }
 
 // =====================================================================
-// FONCTIONS DU CAROUSEL - OPTIMISÉ MOBILE
+// FONCTIONS DU CAROUSEL PRINCIPAL - OPTIMISÉ MOBILE
 // =====================================================================
 function initCarousel() {
     if (!carouselTrack || !carouselIndicators) return;
@@ -799,6 +833,294 @@ function updateActiveSlideIndex() {
     if (closestSlide !== null && closestSlide !== currentSlideIndex) {
         currentSlideIndex = closestSlide;
         updateCarouselControls();
+    }
+}
+
+// =====================================================================
+// FONCTIONS DU CAROUSEL "À PROPOS DE NOUS"
+// =====================================================================
+function initAboutCarousel() {
+    if (!aboutCarouselTrack || !aboutCarouselIndicators) return;
+    
+    renderAboutCarousel();
+    setupAboutCarouselEvents();
+}
+
+function renderAboutCarousel() {
+    aboutCarouselTrack.innerHTML = '';
+    aboutCarouselIndicators.innerHTML = '';
+    
+    aboutImages.forEach((imageUrl, index) => {
+        // Créer la diapositive
+        const slide = document.createElement('div');
+        slide.className = 'about-carousel-slide';
+        slide.dataset.index = index;
+        
+        // Créer l'image
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = `Image ${index + 1} de la section À propos`;
+        img.loading = 'lazy';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        
+        img.onerror = function() {
+            this.style.display = 'none';
+            const placeholder = document.createElement('div');
+            placeholder.className = 'image-placeholder';
+            placeholder.innerHTML = `
+                <i class="fas fa-image" aria-hidden="true"></i>
+                <p>Image ${index + 1}</p>
+            `;
+            slide.appendChild(placeholder);
+        };
+        
+        slide.appendChild(img);
+        aboutCarouselTrack.appendChild(slide);
+        
+        // Créer l'indicateur
+        const indicator = document.createElement('button');
+        indicator.className = 'about-carousel-indicator';
+        indicator.dataset.index = index;
+        indicator.setAttribute('aria-label', `Aller à l'image ${index + 1}`);
+        
+        if (index === 0) {
+            indicator.classList.add('active');
+            indicator.setAttribute('aria-current', 'true');
+        }
+        
+        indicator.addEventListener('click', () => {
+            scrollToAboutSlide(index);
+        });
+        
+        aboutCarouselIndicators.appendChild(indicator);
+    });
+}
+
+function startAboutCarousel() {
+    // Arrêter tout intervalle existant
+    if (aboutCarouselInterval) {
+        clearInterval(aboutCarouselInterval);
+    }
+    
+    // Démarrer le défilement automatique
+    aboutCarouselInterval = setInterval(() => {
+        aboutCurrentSlideIndex = (aboutCurrentSlideIndex + 1) % aboutImages.length;
+        scrollToAboutSlide(aboutCurrentSlideIndex);
+    }, 4000); // Change toutes les 4 secondes
+}
+
+function scrollToAboutSlide(index) {
+    const slides = aboutCarouselTrack.querySelectorAll('.about-carousel-slide');
+    if (slides[index]) {
+        aboutCurrentSlideIndex = index;
+        
+        // Animation de transition
+        aboutCarouselTrack.style.transition = 'transform 0.5s ease-in-out';
+        aboutCarouselTrack.style.transform = `translateX(-${index * 100}%)`;
+        
+        // Mettre à jour les indicateurs
+        updateAboutCarouselIndicators();
+    }
+}
+
+function updateAboutCarouselIndicators() {
+    const indicators = aboutCarouselIndicators.querySelectorAll('.about-carousel-indicator');
+    indicators.forEach((indicator, index) => {
+        if (index === aboutCurrentSlideIndex) {
+            indicator.classList.add('active');
+            indicator.setAttribute('aria-current', 'true');
+        } else {
+            indicator.classList.remove('active');
+            indicator.removeAttribute('aria-current');
+        }
+    });
+}
+
+function setupAboutCarouselEvents() {
+    // Arrêter le défilement automatique au survol
+    aboutCarouselTrack.addEventListener('mouseenter', () => {
+        if (aboutCarouselInterval) {
+            clearInterval(aboutCarouselInterval);
+        }
+    });
+    
+    // Reprendre le défilement automatique quand la souris quitte
+    aboutCarouselTrack.addEventListener('mouseleave', () => {
+        startAboutCarousel();
+    });
+    
+    // Support tactile pour mobile
+    aboutCarouselTrack.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    
+    aboutCarouselTrack.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0 && aboutCurrentSlideIndex < aboutImages.length - 1) {
+                // Swipe gauche -> image suivante
+                aboutCurrentSlideIndex++;
+            } else if (diff < 0 && aboutCurrentSlideIndex > 0) {
+                // Swipe droite -> image précédente
+                aboutCurrentSlideIndex--;
+            }
+            scrollToAboutSlide(aboutCurrentSlideIndex);
+        }
+    });
+}
+
+// =====================================================================
+// FONCTIONS POUR "À PROPOS DE NOUS"
+// =====================================================================
+function initAboutSection() {
+    const aboutSection = document.querySelector('#about');
+    if (aboutSection) {
+        // Ajouter des classes pour le responsive
+        const aboutContent = aboutSection.querySelector('.about-content');
+        if (aboutContent) {
+            aboutContent.classList.add('mobile-optimized');
+        }
+        
+        // Optimiser les images dans la section about
+        const aboutImages = aboutSection.querySelectorAll('img');
+        aboutImages.forEach(img => {
+            img.loading = 'lazy';
+            img.style.maxWidth = '100%';
+            img.style.height = 'auto';
+        });
+        
+        // Animer les statistiques
+        const stats = aboutSection.querySelectorAll('.stat-item');
+        stats.forEach(stat => {
+            stat.style.opacity = '0';
+            stat.style.transform = 'translateY(20px)';
+            stat.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Observer pour l'animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(stats).indexOf(entry.target);
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        stats.forEach(stat => observer.observe(stat));
+    }
+}
+
+// =====================================================================
+// FONCTIONS POUR "NOTRE IMPACT"
+// =====================================================================
+function initImpactSection() {
+    const impactSection = document.querySelector('#impact');
+    if (impactSection) {
+        // Optimiser pour mobile
+        const impactForm = impactSection.querySelector('.impact-form');
+        if (impactForm) {
+            optimizeImpactFormForMobile(impactForm);
+        }
+        
+        // Animer les éléments d'impact
+        const impactItems = impactSection.querySelectorAll('.impact-item');
+        impactItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Observer pour l'animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(impactItems).indexOf(entry.target);
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        impactItems.forEach(item => observer.observe(item));
+    }
+}
+
+function optimizeImpactFormForMobile(form) {
+    if (!form) return;
+    
+    if (isMobile) {
+        // Style pour mobile
+        form.style.padding = '20px';
+        form.style.margin = '20px 0';
+        form.style.maxWidth = '100%';
+        form.style.width = '100%';
+        
+        // Optimiser les champs de formulaire
+        const inputs = form.querySelectorAll('input, textarea, select, button');
+        inputs.forEach(input => {
+            input.style.fontSize = '16px'; // Empêcher le zoom automatique sur iOS
+            input.style.padding = '12px';
+            input.style.marginBottom = '15px';
+            input.style.width = '100%';
+            input.style.boxSizing = 'border-box';
+        });
+        
+        // Optimiser les boutons
+        const buttons = form.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.style.padding = '15px';
+            button.style.fontSize = '18px';
+            button.style.width = '100%';
+        });
+        
+        // Optimiser les labels
+        const labels = form.querySelectorAll('label');
+        labels.forEach(label => {
+            label.style.display = 'block';
+            label.style.marginBottom = '8px';
+            label.style.fontSize = '16px';
+            label.style.fontWeight = 'bold';
+        });
+    } else {
+        // Réinitialiser pour desktop
+        form.style.padding = '';
+        form.style.margin = '';
+        form.style.maxWidth = '';
+        form.style.width = '';
+        
+        const inputs = form.querySelectorAll('input, textarea, select, button');
+        inputs.forEach(input => {
+            input.style.fontSize = '';
+            input.style.padding = '';
+            input.style.marginBottom = '';
+            input.style.width = '';
+        });
+        
+        const buttons = form.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.style.padding = '';
+            button.style.fontSize = '';
+            button.style.width = '';
+        });
+        
+        const labels = form.querySelectorAll('label');
+        labels.forEach(label => {
+            label.style.display = '';
+            label.style.marginBottom = '';
+            label.style.fontSize = '';
+            label.style.fontWeight = '';
+        });
     }
 }
 
@@ -1048,55 +1370,143 @@ function showToast(message, type = 'success') {
 }
 
 // =====================================================================
-// FONCTIONS POUR "À PROPOS DE NOUS"
+// STYLES DYNAMIQUES POUR LES CAROUSELS
 // =====================================================================
-function initAboutSection() {
-    const aboutSection = document.querySelector('#about');
-    if (aboutSection) {
-        // Ajouter des classes pour le responsive
-        const aboutContent = aboutSection.querySelector('.about-content');
-        if (aboutContent) {
-            aboutContent.classList.add('mobile-optimized');
+function addDynamicStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Styles pour le carousel "À propos de nous" */
+        .about-carousel-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
         
-        // Optimiser les images dans la section about
-        const aboutImages = aboutSection.querySelectorAll('img');
-        aboutImages.forEach(img => {
-            img.loading = 'lazy';
-            img.style.maxWidth = '100%';
-            img.style.height = 'auto';
-        });
+        .about-carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 400px;
+        }
         
-        // Animer les statistiques
-        const stats = aboutSection.querySelectorAll('.stat-item');
-        stats.forEach(stat => {
-            stat.style.opacity = '0';
-            stat.style.transform = 'translateY(20px)';
-            stat.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        });
+        .about-carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
         
-        // Observer pour l'animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = Array.from(stats).indexOf(entry.target);
-                    setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 100);
-                }
-            });
-        }, { threshold: 0.1 });
+        .about-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
         
-        stats.forEach(stat => observer.observe(stat));
-    }
+        .about-carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .about-carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light, #f8f9fa);
+            border: 2px solid var(--primary, #007bff);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .about-carousel-indicator.active {
+            background: var(--primary, #007bff);
+            transform: scale(1.2);
+        }
+        
+        /* Styles responsive pour mobile */
+        @media (max-width: 768px) {
+            .about-carousel-track {
+                height: 300px;
+            }
+            
+            .about-carousel-indicator {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .impact-form {
+                padding: 15px !important;
+                margin: 15px 0 !important;
+            }
+            
+            .impact-form input,
+            .impact-form textarea,
+            .impact-form select,
+            .impact-form button {
+                font-size: 16px !important;
+                padding: 14px !important;
+                margin-bottom: 12px !important;
+            }
+            
+            .impact-form button {
+                padding: 16px !important;
+                font-size: 18px !important;
+            }
+            
+            .impact-form label {
+                font-size: 16px !important;
+                margin-bottom: 10px !important;
+            }
+        }
+        
+        /* Animation pour les éléments qui apparaissent au scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Placeholder pour les images */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--light-gray, #e9ecef);
+            color: var(--gray, #6c757d);
+            border-radius: 8px;
+        }
+        
+        .image-placeholder i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        /* Toast animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `;
+    document.head.appendChild(style);
 }
+
+// Ajouter les styles dynamiques
+addDynamicStyles();
 
 // =====================================================================
 // EXPOSITION DES FONCTIONS GLOBALES
 // =====================================================================
 window.showDonationModal = showDonationModal;
 window.openGalleryModal = openGalleryModal;
-
-// Initialiser la section "À propos" quand le DOM est chargé
-document.addEventListener('DOMContentLoaded', initAboutSection);
+window.optimizeImpactFormForMobile = optimizeImpactFormForMobile;
