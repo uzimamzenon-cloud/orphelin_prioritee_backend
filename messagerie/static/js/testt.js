@@ -997,7 +997,7 @@ function optimizeTeamImages() {
             card.classList.add('mobile-view');
             
             // Forcer le style circulaire sur mobile
-            imgContainer.style.borderRadius = '50%';
+            imgContainer.style.borderRadius = '20%';
             imgContainer.style.width = '200px';
             imgContainer.style.height = '200px';
             imgContainer.style.margin = '0 auto 20px auto';
