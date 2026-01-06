@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import MessageContact
+from .models import MessageContact, Newsletter
 from django.core.mail import send_mail
 from django.conf import settings # Utiliser django.conf est plus propre
 from django.views.decorators.csrf import csrf_exempt
@@ -81,3 +81,43 @@ def enregistrer_message(request):
             }, status=400)
             
     return JsonResponse({"message": "Erreur : Seule la méthode POST est autorisée"}, status=405)
+
+
+# 3. Inscription à la newsletter
+@csrf_exempt
+def enregistrer_newsletter(request):
+    if request.method == 'POST':
+        try:
+            donnees = json.loads(request.body)
+            email = donnees.get('email', '').strip()
+            
+            if not email:
+                return JsonResponse({
+                    "status": "error",
+                    "message": "L'adresse email est requise."
+                }, status=400)
+            
+            # Vérifier si l'email existe déjà
+            if Newsletter.objects.filter(email=email).exists():
+                return JsonResponse({
+                    "status": "warning",
+                    "message": "Cette adresse est déjà inscrite à notre newsletter."
+                }, status=200)
+            
+            # Créer l'inscription
+            Newsletter.objects.create(email=email)
+            print(f"Newsletter : Nouvelle inscription - {email}")
+            
+            return JsonResponse({
+                "status": "success",
+                "message": "Merci ! Vous êtes maintenant inscrit à notre newsletter."
+            }, status=201)
+            
+        except Exception as e:
+            print(f"ERREUR Newsletter : {str(e)}")
+            return JsonResponse({
+                "status": "error",
+                "message": f"Erreur lors de l'inscription : {str(e)}"
+            }, status=400)
+    
+    return JsonResponse({"message": "Méthode non autorisée"}, status=405)

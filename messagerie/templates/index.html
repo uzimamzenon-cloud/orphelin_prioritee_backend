@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +11,40 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Meta Tags pour SEO -->
-    <meta name="description" content="Orphelin Priorité ASBL est une organisation communautaire dédiée à la protection, l'accompagnement et au développement des enfants orphelins et vulnérables en République Démocratique du Congo.">
-    <meta name="keywords" content="orphelin, RDC, Congo, enfants, protection, aide humanitaire, don, association, Goma, orphelin priorité, ASBL">
+    <meta name="description"
+        content="Orphelin Priorité ASBL est une organisation communautaire dédiée à la protection, l'accompagnement et au développement des enfants orphelins et vulnérables en République Démocratique du Congo.">
+    <meta name="keywords"
+        content="orphelin, RDC, Congo, enfants, protection, aide humanitaire, don, association, Goma, orphelin priorité, ASBL">
     <meta name="author" content="Orphelin Priorité ASBL">
     <meta property="og:title" content="Orphelin Priorité ASBL">
     <meta property="og:description" content="Protection et développement des enfants orphelins en RDC">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://orphelinpriorite.org">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1516627145497-ae695b1f7f26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1516627145497-ae695b1f7f26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Orphelin Priorité ASBL">
     <meta name="twitter:description" content="Protection et développement des enfants orphelins en RDC">
 
     <!-- Icônes -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍👩‍👧‍👦</text></svg>">
+    <link rel="icon" type="image/x-icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍👩‍👧‍👦</text></svg>">
 
     <!-- Polices Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <!-- Lien vers le JavaScript -->
-     <script src="{% static 'js/test.js' %}"></script>
+    <!-- JavaScript moved to end of body for better loading -->
 </head>
+
 <body class="no-js">
     <!-- Skip to content link pour l'accessibilité -->
     <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
@@ -51,7 +60,8 @@
             <!-- Logo -->
             <a href="#home" class="logo">
                 <div class="logo-icon">
-                    <img src="{% static 'images/Screenshot_20251210-220816.png' %}" alt="Logo Orphelin Priorité ASBL" class="logo-img">
+                    <img src="{% static 'images/Screenshot_20251210-220816.png' %}" alt="Logo Orphelin Priorité ASBL"
+                        class="logo-img">
                 </div>
                 <div class="logo-text">
                     <h1>ORPHELIN PRIORITÉ</h1>
@@ -62,10 +72,13 @@
             <!-- Navigation -->
             <nav class="nav">
                 <ul class="nav-menu" id="navMenu">
-                    <li class="nav-item"><a href="#home" class="nav-link active"><i class="fas fa-home"></i> <span class="nav-text">Accueil</span></a></li>
-                    <li class="nav-item"><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> <span class="nav-text">À propos</span></a></li>
+                    <li class="nav-item"><a href="#home" class="nav-link active"><i class="fas fa-home"></i> <span
+                                class="nav-text">Accueil</span></a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> <span
+                                class="nav-text">À propos</span></a></li>
                     <li class="nav-item nav-dropdown">
-                        <a href="#programs" class="nav-link"><i class="fas fa-project-diagram"></i> <span class="nav-text">Programmes</span> <i class="fas fa-chevron-down"></i></a>
+                        <a href="#programs" class="nav-link"><i class="fas fa-project-diagram"></i> <span
+                                class="nav-text">Programmes</span> <i class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#programs" class="dropdown-item">Soutien éducatif</a></li>
                             <li><a href="#programs" class="dropdown-item">Santé &amp; Nutrition</a></li>
@@ -73,22 +86,28 @@
                             <li><a href="#programs" class="dropdown-item">Actions communautaires</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a href="#team" class="nav-link"><i class="fas fa-users"></i> <span class="nav-text">Équipe</span></a></li>
-                    <li class="nav-item"><a href="#impact" class="nav-link"><i class="fas fa-chart-line"></i> <span class="nav-text">Impact</span></a></li>
-                    <li class="nav-item"><a href="#donate" class="nav-link"><i class="fas fa-donate"></i> <span class="nav-text">Faire un don</span></a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> <span class="nav-text">Contact</span></a></li>
+                    <li class="nav-item"><a href="#team" class="nav-link"><i class="fas fa-users"></i> <span
+                                class="nav-text">Équipe</span></a></li>
+                    <li class="nav-item"><a href="#impact" class="nav-link"><i class="fas fa-chart-line"></i> <span
+                                class="nav-text">Impact</span></a></li>
+                    <li class="nav-item"><a href="#donate" class="nav-link"><i class="fas fa-donate"></i> <span
+                                class="nav-text">Faire un don</span></a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> <span
+                                class="nav-text">Contact</span></a></li>
                 </ul>
             </nav>
 
             <!-- Header Actions -->
             <div class="header-actions">
-                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Basculer le thème sombre/clair" title="Changer de thème">
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Basculer le thème sombre/clair"
+                    title="Changer de thème">
                     <i class="fas fa-moon"></i>
                 </button>
                 <a href="#donate" class="btn btn-accent d-none d-md-flex">
                     <i class="fas fa-heart"></i> <span class="btn-text">Faire un don</span>
                 </a>
-                <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile" aria-expanded="false" aria-controls="navMenu">
+                <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile"
+                    aria-expanded="false" aria-controls="navMenu">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -100,8 +119,10 @@
         <div class="container">
             <div class="hero-content animate-on-scroll" id="main-content" tabindex="-1">
                 <h1 class="hero-title">Orphelin Priorité ASBL</h1>
-                <p class="hero-subtitle">Organisation communautaire dédiée à la protection, l'accompagnement et au développement des enfants orphelins et vulnérables en République Démocratique du Congo.</p>
-                <p class="hero-subtitle">Notre engagement : redonner espoir, offrir un avenir et renforcer la dignité de chaque enfant.</p>
+                <p class="hero-subtitle">Organisation communautaire dédiée à la protection, l'accompagnement et au
+                    développement des enfants orphelins et vulnérables en République Démocratique du Congo.</p>
+                <p class="hero-subtitle">Notre engagement : redonner espoir, offrir un avenir et renforcer la dignité de
+                    chaque enfant.</p>
 
                 <div class="hero-buttons">
                     <a href="#donate" class="btn btn-secondary btn-lg">
@@ -142,7 +163,8 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">À propos de nous</h2>
-                <p class="section-subtitle">Orphelin Priorité ASBL œuvre depuis 2015 pour améliorer les conditions de vie des enfants orphelins et vulnérables en République Démocratique du Congo.</p>
+                <p class="section-subtitle">Orphelin Priorité ASBL œuvre depuis 2015 pour améliorer les conditions de
+                    vie des enfants orphelins et vulnérables en République Démocratique du Congo.</p>
             </div>
 
             <div class="about-content">
@@ -156,12 +178,14 @@
                             </div>
 
                             <div class="carousel-container">
-                                <div class="carousel-track" id="carouselTrack" role="region" aria-label="Carousel d'images de notre travail">
+                                <div class="carousel-track" id="carouselTrack" role="region"
+                                    aria-label="Carousel d'images de notre travail">
                                     <!-- Les images seront ajoutées dynamiquement par JavaScript -->
                                 </div>
 
                                 <div class="carousel-nav">
-                                    <button type="button" class="carousel-scroll-btn" id="carouselPrev" aria-label="Image précédente">
+                                    <button type="button" class="carousel-scroll-btn" id="carouselPrev"
+                                        aria-label="Image précédente">
                                         <i class="fas fa-chevron-left"></i>
                                     </button>
 
@@ -169,13 +193,15 @@
                                         <!-- Les indicateurs seront ajoutés dynamiquement -->
                                     </div>
 
-                                    <button type="button" class="carousel-scroll-btn" id="carouselNext" aria-label="Image suivante">
+                                    <button type="button" class="carousel-scroll-btn" id="carouselNext"
+                                        aria-label="Image suivante">
                                         <i class="fas fa-chevron-right"></i>
                                     </button>
                                 </div>
 
                                 <div class="carousel-instructions">
-                                    <p><i class="fas fa-mouse-pointer"></i> Faites défiler horizontalement ou utilisez les flèches</p>
+                                    <p><i class="fas fa-mouse-pointer"></i> Faites défiler horizontalement ou utilisez
+                                        les flèches</p>
                                 </div>
                             </div>
                         </div>
@@ -183,18 +209,29 @@
 
                     <div class="about-text animate-on-scroll">
                         <h3>Notre Histoire</h3>
-                        <p>Fondée en 2015 à Goma, Orphelin Priorité ASBL est née de la volonté d'un groupe de citoyens engagés de répondre à la crise humanitaire affectant les enfants orphelins dans l'est de la RDC. Face à l'augmentation du nombre d'enfants vulnérables suite aux conflits et à la pauvreté, nous avons décidé d'agir concrètement.</p>
+                        <p>Fondée en 2015 à Goma, Orphelin Priorité ASBL est née de la volonté d'un groupe de citoyens
+                            engagés de répondre à la crise humanitaire affectant les enfants orphelins dans l'est de la
+                            RDC. Face à l'augmentation du nombre d'enfants vulnérables suite aux conflits et à la
+                            pauvreté, nous avons décidé d'agir concrètement.</p>
 
-                        <p>Depuis nos débuts, nous avons évolué d'une initiative locale à une organisation structurée intervenant dans plusieurs provinces du pays. Notre approche se base sur un accompagnement holistique qui répond aux besoins physiques, éducatifs, psychologiques et sociaux des enfants.</p>
+                        <p>Depuis nos débuts, nous avons évolué d'une initiative locale à une organisation structurée
+                            intervenant dans plusieurs provinces du pays. Notre approche se base sur un accompagnement
+                            holistique qui répond aux besoins physiques, éducatifs, psychologiques et sociaux des
+                            enfants.</p>
 
                         <div class="mt-6">
                             <h4>Nos Objectifs</h4>
                             <ul class="objectives-list">
-                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Protéger les droits fondamentaux des enfants orphelins</li>
-                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Assurer l'accès à l'éducation et aux soins de santé</li>
-                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Renforcer les capacités des familles d'accueil</li>
-                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Promouvoir l'autonomisation des jeunes</li>
-                                <li><i class="fas fa-check text-success mr-2"></i> Sensibiliser les communautés à la protection de l'enfance</li>
+                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Protéger les droits
+                                    fondamentaux des enfants orphelins</li>
+                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Assurer l'accès à
+                                    l'éducation et aux soins de santé</li>
+                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Renforcer les capacités
+                                    des familles d'accueil</li>
+                                <li class="mb-3"><i class="fas fa-check text-success mr-2"></i> Promouvoir
+                                    l'autonomisation des jeunes</li>
+                                <li><i class="fas fa-check text-success mr-2"></i> Sensibiliser les communautés à la
+                                    protection de l'enfance</li>
                             </ul>
                         </div>
                     </div>
@@ -206,8 +243,11 @@
                             <i class="fas fa-bullseye"></i>
                         </div>
                         <h3>Notre Mission</h3>
-                        <p>Assurer le bien-être social, éducatif, sanitaire et psychologique des enfants orphelins et vulnérables à travers un accompagnement complet et adapté.</p>
-                        <p>Nous nous engageons à fournir un soutien multidimensionnel qui répond aux besoins spécifiques de chaque enfant, en collaboration avec les communautés locales et les partenaires institutionnels.</p>
+                        <p>Assurer le bien-être social, éducatif, sanitaire et psychologique des enfants orphelins et
+                            vulnérables à travers un accompagnement complet et adapté.</p>
+                        <p>Nous nous engageons à fournir un soutien multidimensionnel qui répond aux besoins spécifiques
+                            de chaque enfant, en collaboration avec les communautés locales et les partenaires
+                            institutionnels.</p>
                     </div>
 
                     <div class="vision-card">
@@ -215,8 +255,10 @@
                             <i class="fas fa-eye"></i>
                         </div>
                         <h3>Notre Vision</h3>
-                        <p>Construire une société où chaque enfant, sans distinction, a accès à la protection, à l'éducation, à la santé et aux opportunités nécessaires pour réussir sa vie.</p>
-                        <p>Nous aspirons à un monde où les enfants orphelins et vulnérables ne sont pas laissés pour compte mais deviennent des acteurs du développement de leur communauté.</p>
+                        <p>Construire une société où chaque enfant, sans distinction, a accès à la protection, à
+                            l'éducation, à la santé et aux opportunités nécessaires pour réussir sa vie.</p>
+                        <p>Nous aspirons à un monde où les enfants orphelins et vulnérables ne sont pas laissés pour
+                            compte mais deviennent des acteurs du développement de leur communauté.</p>
                     </div>
                 </div>
             </div>
@@ -228,7 +270,8 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Nos Valeurs</h2>
-                <p class="section-subtitle">Nos actions sont guidées par des valeurs profondes qui définissent notre identité et notre engagement envers les enfants.</p>
+                <p class="section-subtitle">Nos actions sont guidées par des valeurs profondes qui définissent notre
+                    identité et notre engagement envers les enfants.</p>
             </div>
 
             <div class="values-grid">
@@ -237,7 +280,8 @@
                         <i class="fas fa-hands-helping"></i>
                     </div>
                     <h3 class="value-title">Solidarité</h3>
-                    <p>Nous croyons en la force de la communauté et de l'entraide. Chaque enfant doit savoir qu'il n'est pas seul et qu'une communauté entière se tient à ses côtés.</p>
+                    <p>Nous croyons en la force de la communauté et de l'entraide. Chaque enfant doit savoir qu'il n'est
+                        pas seul et qu'une communauté entière se tient à ses côtés.</p>
                 </div>
 
                 <div class="value-card animate-on-scroll">
@@ -245,7 +289,8 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3 class="value-title">Intégrité</h3>
-                    <p>Nous agissons avec honnêteté, transparence et responsabilité dans toutes nos actions. Chaque don et chaque ressource est utilisé de manière optimale et traçable.</p>
+                    <p>Nous agissons avec honnêteté, transparence et responsabilité dans toutes nos actions. Chaque don
+                        et chaque ressource est utilisé de manière optimale et traçable.</p>
                 </div>
 
                 <div class="value-card animate-on-scroll">
@@ -253,7 +298,8 @@
                         <i class="fas fa-user-friends"></i>
                     </div>
                     <h3 class="value-title">Respect de la dignité</h3>
-                    <p>Chaque enfant est unique et mérite d'être traité avec respect, considération et dignité. Nous préservons l'estime de soi et l'identité culturelle de chaque enfant.</p>
+                    <p>Chaque enfant est unique et mérite d'être traité avec respect, considération et dignité. Nous
+                        préservons l'estime de soi et l'identité culturelle de chaque enfant.</p>
                 </div>
 
                 <div class="value-card animate-on-scroll">
@@ -261,7 +307,8 @@
                         <i class="fas fa-child"></i>
                     </div>
                     <h3 class="value-title">Protection de l'enfant</h3>
-                    <p>La sécurité et le bien-être des enfants sont notre priorité absolue. Nous créons des environnements protecteurs où les enfants peuvent s'épanouir en toute sécurité.</p>
+                    <p>La sécurité et le bien-être des enfants sont notre priorité absolue. Nous créons des
+                        environnements protecteurs où les enfants peuvent s'épanouir en toute sécurité.</p>
                 </div>
 
                 <div class="value-card animate-on-scroll">
@@ -269,7 +316,8 @@
                         <i class="fas fa-eye"></i>
                     </div>
                     <h3 class="value-title">Transparence</h3>
-                    <p>Nous communiquons ouvertement sur nos actions, nos résultats et notre gestion financière. Nos donateurs et partenaires ont accès à des rapports détaillés sur l'utilisation des fonds.</p>
+                    <p>Nous communiquons ouvertement sur nos actions, nos résultats et notre gestion financière. Nos
+                        donateurs et partenaires ont accès à des rapports détaillés sur l'utilisation des fonds.</p>
                 </div>
 
                 <div class="value-card animate-on-scroll">
@@ -277,7 +325,8 @@
                         <i class="fas fa-heart"></i>
                     </div>
                     <h3 class="value-title">Engagement durable</h3>
-                    <p>Notre soutien ne se limite pas à une aide immédiate. Nous accompagnons les enfants sur le long terme, jusqu'à leur autonomie complète.</p>
+                    <p>Notre soutien ne se limite pas à une aide immédiate. Nous accompagnons les enfants sur le long
+                        terme, jusqu'à leur autonomie complète.</p>
                 </div>
             </div>
         </div>
@@ -288,20 +337,24 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Nos Programmes</h2>
-                <p class="section-subtitle">Nos programmes holistiques sont conçus pour répondre aux multiples besoins des enfants orphelins et vulnérables.</p>
+                <p class="section-subtitle">Nos programmes holistiques sont conçus pour répondre aux multiples besoins
+                    des enfants orphelins et vulnérables.</p>
             </div>
 
             <div class="program-tabs">
                 <button type="button" class="program-tab active" data-tab="education" aria-label="Programme Éducation">
                     <i class="fas fa-graduation-cap"></i> <span>Éducation</span>
                 </button>
-                <button type="button" class="program-tab" data-tab="health" aria-label="Programme Santé &amp; Nutrition">
+                <button type="button" class="program-tab" data-tab="health"
+                    aria-label="Programme Santé &amp; Nutrition">
                     <i class="fas fa-heartbeat"></i> <span>Santé &amp; Nutrition</span>
                 </button>
-                <button type="button" class="program-tab" data-tab="social" aria-label="Programme Accompagnement social">
+                <button type="button" class="program-tab" data-tab="social"
+                    aria-label="Programme Accompagnement social">
                     <i class="fas fa-hands"></i> <span>Accompagnement social</span>
                 </button>
-                <button type="button" class="program-tab" data-tab="community" aria-label="Programme Actions communautaires">
+                <button type="button" class="program-tab" data-tab="community"
+                    aria-label="Programme Actions communautaires">
                     <i class="fas fa-users"></i> <span>Actions communautaires</span>
                 </button>
             </div>
@@ -316,7 +369,8 @@
                         <h3 class="program-title">Soutien éducatif</h3>
                     </div>
                     <div class="program-body">
-                        <p>Nous croyons que l'éducation est la clé pour briser le cycle de la pauvreté. Notre programme éducatif vise à offrir à chaque enfant l'accès à une éducation de qualité.</p>
+                        <p>Nous croyons que l'éducation est la clé pour briser le cycle de la pauvreté. Notre programme
+                            éducatif vise à offrir à chaque enfant l'accès à une éducation de qualité.</p>
 
                         <ul class="program-features">
                             <li>Appui en fournitures scolaires (cahiers, stylos, uniformes)</li>
@@ -344,7 +398,8 @@
                         <h3 class="program-title">Santé &amp; Nutrition</h3>
                     </div>
                     <div class="program-body">
-                        <p>Un enfant en bonne santé est un enfant qui peut apprendre et se développer pleinement. Nous assurons l'accès aux soins de santé et à une nutrition adéquate.</p>
+                        <p>Un enfant en bonne santé est un enfant qui peut apprendre et se développer pleinement. Nous
+                            assurons l'accès aux soins de santé et à une nutrition adéquate.</p>
 
                         <ul class="program-features">
                             <li>Appui pour soins médicaux fondamentaux</li>
@@ -356,7 +411,8 @@
                         </ul>
 
                         <div class="program-stats">
-                            <p><strong>Résultats 2023 :</strong> 180 enfants suivis médicalement, 95% de couverture vaccinale</p>
+                            <p><strong>Résultats 2023 :</strong> 180 enfants suivis médicalement, 95% de couverture
+                                vaccinale</p>
                         </div>
 
                         <a href="#donate" class="btn btn-primary btn-block">Soutenir ce programme</a>
@@ -372,7 +428,8 @@
                         <h3 class="program-title">Accompagnement social</h3>
                     </div>
                     <div class="program-body">
-                        <p>Au-delà des besoins matériels, chaque enfant a besoin d'un environnement affectif stable et d'un soutien psychosocial pour surmonter les traumatismes.</p>
+                        <p>Au-delà des besoins matériels, chaque enfant a besoin d'un environnement affectif stable et
+                            d'un soutien psychosocial pour surmonter les traumatismes.</p>
 
                         <ul class="program-features">
                             <li>Visites régulières dans les orphelinats et familles d'accueil</li>
@@ -399,7 +456,8 @@
         <div class="container team-container">
             <div class="section-header">
                 <h2 class="section-title">Notre Comité de Direction</h2>
-                <p class="section-subtitle">Une équipe dévouée et passionnée travaille chaque jour pour améliorer la vie des enfants orphelins et vulnérables.</p>
+                <p class="section-subtitle">Une équipe dévouée et passionnée travaille chaque jour pour améliorer la vie
+                    des enfants orphelins et vulnérables.</p>
             </div>
 
             <div class="team-grid">
@@ -407,16 +465,22 @@
                 <div class="team-card animate-on-scroll">
                     <div class="team-badge">Fondateur</div>
                     <div class="team-img-container">
-                        <img src="{% static 'images/IMG-20251210-WA0049.png' %}" alt="MINSORI KIBIKIBI Désire, Président & Fondateur" class="team-img loading" loading="lazy">
+                        <img src="{% static 'images/IMG-20251210-WA0049.png' %}"
+                            alt="MINSORI KIBIKIBI Désire, Président & Fondateur" class="team-img loading"
+                            loading="lazy">
                     </div>
                     <div class="team-info">
                         <h3 class="team-name">MINSORI KIBIKIBI Désire</h3>
                         <div class="team-role">Président &amp; Fondateur</div>
-                        <p class="team-description">Fondateur de l'ASBL avec plus de 15 ans d'expérience dans le travail social. Sa vision et son leadership guident notre organisation.</p>
+                        <p class="team-description">Fondateur de l'ASBL avec plus de 15 ans d'expérience dans le travail
+                            social. Sa vision et son leadership guident notre organisation.</p>
                         <div class="team-social">
-                            <a href="#" aria-label="LinkedIn de MINSORI KIBIKIBI Désire"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" aria-label="Twitter de MINSORI KIBIKIBI Désire"><i class="fab fa-twitter"></i></a>
-                            <a href="#" aria-label="Email de MINSORI KIBIKIBI Désire"><i class="fas fa-envelope"></i></a>
+                            <a href="#" aria-label="LinkedIn de MINSORI KIBIKIBI Désire"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter de MINSORI KIBIKIBI Désire"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Email de MINSORI KIBIKIBI Désire"><i
+                                    class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
@@ -424,14 +488,17 @@
                 <!-- Team Member 2 -->
                 <div class="team-card animate-on-scroll">
                     <div class="team-img-container">
-                        <img src="{% static 'images/IMG-20251210-WA0047.jpg' %}" alt="Judith N'Dhangalume, Vice-présidente" class="team-img loading" loading="lazy">
+                        <img src="{% static 'images/IMG-20251210-WA0047.jpg' %}"
+                            alt="Judith N'Dhangalume, Vice-présidente" class="team-img loading" loading="lazy">
                     </div>
                     <div class="team-info">
                         <h3 class="team-name">Judith N'Dhangalume</h3>
                         <div class="team-role">Vice-présidente</div>
-                        <p class="team-description">Spécialiste en protection de l'enfance avec une expertise en programmes communautaires. Elle supervise nos interventions sur le terrain.</p>
+                        <p class="team-description">Spécialiste en protection de l'enfance avec une expertise en
+                            programmes communautaires. Elle supervise nos interventions sur le terrain.</p>
                         <div class="team-social">
-                            <a href="#" aria-label="LinkedIn de Judith N'Dhangalume"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="LinkedIn de Judith N'Dhangalume"><i
+                                    class="fab fa-linkedin-in"></i></a>
                             <a href="#" aria-label="Twitter de Judith N'Dhangalume"><i class="fab fa-twitter"></i></a>
                             <a href="#" aria-label="Email de Judith N'Dhangalume"><i class="fas fa-envelope"></i></a>
                         </div>
@@ -441,12 +508,14 @@
                 <!-- Team Member 3 -->
                 <div class="team-card animate-on-scroll">
                     <div class="team-img-container">
-                        <img src="{% static 'images/IMG-20251210-WA0052~3.jpg' %}" alt="Délice Zagabe, Secrétaire générale" class="team-img loading" loading="lazy">
+                        <img src="{% static 'images/IMG-20251210-WA0052~3.jpg' %}"
+                            alt="Délice Zagabe, Secrétaire générale" class="team-img loading" loading="lazy">
                     </div>
                     <div class="team-info">
                         <h3 class="team-name">Délice Zagabe</h3>
                         <div class="team-role">Secrétaire générale</div>
-                        <p class="team-description">Gère l'administration, la documentation et les relations institutionnelles. Elle assure le bon fonctionnement opérationnel de l'ASBL.</p>
+                        <p class="team-description">Gère l'administration, la documentation et les relations
+                            institutionnelles. Elle assure le bon fonctionnement opérationnel de l'ASBL.</p>
                         <div class="team-social">
                             <a href="#" aria-label="LinkedIn de Délice Zagabe"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#" aria-label="Twitter de Délice Zagabe"><i class="fab fa-twitter"></i></a>
@@ -458,12 +527,14 @@
                 <!-- Team Member 4 -->
                 <div class="team-card animate-on-scroll">
                     <div class="team-img-container">
-                        <img src="{% static 'images/IMG-20251210-WA0050~3.jpg' %}" alt="Carlos Lasimba, Trésorier" class="team-img loading" loading="lazy">
+                        <img src="{% static 'images/IMG-20251210-WA0050~3.jpg' %}" alt="Carlos Lasimba, Trésorier"
+                            class="team-img loading" loading="lazy">
                     </div>
                     <div class="team-info">
                         <h3 class="team-name">Carlos Lasimba</h3>
                         <div class="team-role">Trésorier</div>
-                        <p class="team-description">Expert en gestion financière et comptable. Il assure la transparence et la bonne gestion des ressources de l'organisation.</p>
+                        <p class="team-description">Expert en gestion financière et comptable. Il assure la transparence
+                            et la bonne gestion des ressources de l'organisation.</p>
                         <div class="team-social">
                             <a href="#" aria-label="LinkedIn de Carlos Lasimba"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#" aria-label="Twitter de Carlos Lasimba"><i class="fab fa-twitter"></i></a>
@@ -475,12 +546,14 @@
                 <!-- Team Member 5 -->
                 <div class="team-card animate-on-scroll">
                     <div class="team-img-container">
-                        <img src="{% static 'images/IMG-20251211-WA0016~2.jpg' %}" alt="Ben Andy, Conseiller stratégique" class="team-img loading" loading="lazy">
+                        <img src="{% static 'images/IMG-20251211-WA0016~2.jpg' %}"
+                            alt="Ben Andy, Conseiller stratégique" class="team-img loading" loading="lazy">
                     </div>
                     <div class="team-info">
                         <h3 class="team-name">Ben Andy</h3>
                         <div class="team-role">Conseiller stratégique</div>
-                        <p class="team-description">Apporte son expertise en développement communautaire et en partenariats institutionnels. Il guide notre croissance et notre impact.</p>
+                        <p class="team-description">Apporte son expertise en développement communautaire et en
+                            partenariats institutionnels. Il guide notre croissance et notre impact.</p>
                         <div class="team-social">
                             <a href="#" aria-label="LinkedIn de Ben Andy"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#" aria-label="Twitter de Ben Andy"><i class="fab fa-twitter"></i></a>
@@ -492,14 +565,18 @@
                 <!-- Team Member 6 -->
                 <div class="team-card animate-on-scroll">
                     <div class="team-img-container">
-                        <img src="{% static 'images/IMG-20251210-WA0048.jpg' %}" alt="Christelle Makelele, Coordinatrice des programmes" class="team-img loading" loading="lazy">
+                        <img src="{% static 'images/IMG-20251210-WA0048.jpg' %}"
+                            alt="Christelle Makelele, Coordinatrice des programmes" class="team-img loading"
+                            loading="lazy">
                     </div>
                     <div class="team-info">
                         <h3 class="team-name">Christelle Makelele</h3>
                         <div class="team-role">Coordinatrice des programmes</div>
-                        <p class="team-description">Supervise la mise en œuvre de tous nos programmes sur le terrain. Elle assure la qualité et l'efficacité de nos interventions.</p>
+                        <p class="team-description">Supervise la mise en œuvre de tous nos programmes sur le terrain.
+                            Elle assure la qualité et l'efficacité de nos interventions.</p>
                         <div class="team-social">
-                            <a href="#" aria-label="LinkedIn de Christelle Makelele"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="LinkedIn de Christelle Makelele"><i
+                                    class="fab fa-linkedin-in"></i></a>
                             <a href="#" aria-label="Twitter de Christelle Makelele"><i class="fab fa-twitter"></i></a>
                             <a href="#" aria-label="Email de Christelle Makelele"><i class="fas fa-envelope"></i></a>
                         </div>
@@ -514,7 +591,8 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Notre Impact</h2>
-                <p class="section-subtitle">Grâce à nos donateurs et partenaires, nous changeons concrètement la vie des enfants orphelins et vulnérables en RDC.</p>
+                <p class="section-subtitle">Grâce à nos donateurs et partenaires, nous changeons concrètement la vie des
+                    enfants orphelins et vulnérables en RDC.</p>
             </div>
 
             <div class="impact-stats">
@@ -545,7 +623,10 @@
 
             <div class="impact-story animate-on-scroll">
                 <h3>Histoire de réussite : L'histoire de Sophie</h3>
-                <p>"Orpheline à 8 ans, Sophie a été prise en charge par notre programme en 2018. Aujourd'hui à 15 ans, elle est première de sa classe et rêve de devenir médecin. Notre soutien éducatif, médical et psychosocial lui a permis de surmonter ses traumatismes et de se construire un avenir prometteur."</p>
+                <p>"Orpheline à 8 ans, Sophie a été prise en charge par notre programme en 2018. Aujourd'hui à 15 ans,
+                    elle est première de sa classe et rêve de devenir médecin. Notre soutien éducatif, médical et
+                    psychosocial lui a permis de surmonter ses traumatismes et de se construire un avenir prometteur."
+                </p>
                 <a href="#donate" class="btn btn-secondary btn-lg">Devenir un acteur du changement</a>
             </div>
         </div>
@@ -556,7 +637,8 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Soutenir Notre Action</h2>
-                <p class="section-subtitle">Chaque contribution, grande ou petite, nous permet de continuer notre mission auprès des enfants orphelins et vulnérables.</p>
+                <p class="section-subtitle">Chaque contribution, grande ou petite, nous permet de continuer notre
+                    mission auprès des enfants orphelins et vulnérables.</p>
             </div>
 
             <div class="donate-options">
@@ -569,7 +651,8 @@
                         <h3 class="donate-title">Dons bancaires</h3>
                     </div>
                     <div class="donate-body">
-                        <p>Effectuez un virement direct sur notre compte bancaire. Cette méthode est idéale pour les dons récurrents ou les contributions importantes.</p>
+                        <p>Effectuez un virement direct sur notre compte bancaire. Cette méthode est idéale pour les
+                            dons récurrents ou les contributions importantes.</p>
 
                         <div class="donate-details">
                             <h4>Coordonnées bancaires</h4>
@@ -581,7 +664,8 @@
 
                         <p><strong>Avantages :</strong> Reçu fiscal délivré pour tout don supérieur à 40€.</p>
 
-                        <button type="button" class="btn btn-primary btn-block" onclick="showDonationModal('bank')">Faire un virement</button>
+                        <button type="button" class="btn btn-primary btn-block"
+                            onclick="showDonationModal('bank')">Faire un virement</button>
                     </div>
                 </div>
 
@@ -594,7 +678,8 @@
                         <h3 class="donate-title">Mobile Money</h3>
                     </div>
                     <div class="donate-body">
-                        <p>Faites un don rapidement et simplement via les services de mobile money disponibles en RDC et dans la région.</p>
+                        <p>Faites un don rapidement et simplement via les services de mobile money disponibles en RDC et
+                            dans la région.</p>
 
                         <div class="donate-details">
                             <h4>Numéros de Mobile Money</h4>
@@ -603,9 +688,11 @@
                             <p><strong>Orange Money :</strong> À préciser</p>
                         </div>
 
-                        <p><strong>Instructions :</strong> Effectuez votre transfert et indiquez "DON ORPHELIN" dans le message.</p>
+                        <p><strong>Instructions :</strong> Effectuez votre transfert et indiquez "DON ORPHELIN" dans le
+                            message.</p>
 
-                        <button type="button" class="btn btn-primary btn-block" onclick="showDonationModal('mobile')">Donner via mobile</button>
+                        <button type="button" class="btn btn-primary btn-block"
+                            onclick="showDonationModal('mobile')">Donner via mobile</button>
                     </div>
                 </div>
 
@@ -618,7 +705,8 @@
                         <h3 class="donate-title">Dons en nature</h3>
                     </div>
                     <div class="donate-body">
-                        <p>Vous pouvez également soutenir nos actions par des dons matériels qui seront directement distribués aux enfants et familles.</p>
+                        <p>Vous pouvez également soutenir nos actions par des dons matériels qui seront directement
+                            distribués aux enfants et familles.</p>
 
                         <div class="donate-details">
                             <h4>Articles recherchés</h4>
@@ -631,7 +719,8 @@
                             </ul>
                         </div>
 
-                        <p><strong>Remise :</strong> Veuillez contacter le +243 817 879 584 pour organiser la remise des dons matériels.</p>
+                        <p><strong>Remise :</strong> Veuillez contacter le +243 817 879 584 pour organiser la remise des
+                            dons matériels.</p>
 
                         <a href="#contact" class="btn btn-primary btn-block">Organiser un don matériel</a>
                     </div>
@@ -642,12 +731,16 @@
             <div class="animate-on-scroll mt-8">
                 <div class="section-header">
                     <h3 class="section-title">Devenir Partenaire</h3>
-                    <p class="section-subtitle">Nous sommes ouverts aux collaborations avec ONG, églises, entreprises, institutions publiques ou privées, bénévoles et donateurs. Ensemble, nous pouvons amplifier notre impact.</p>
+                    <p class="section-subtitle">Nous sommes ouverts aux collaborations avec ONG, églises, entreprises,
+                        institutions publiques ou privées, bénévoles et donateurs. Ensemble, nous pouvons amplifier
+                        notre impact.</p>
                 </div>
 
                 <div class="text-center mt-5">
-                    <a href="#contact" class="btn btn-accent btn-lg">Devenir partenaire <i class="fas fa-handshake"></i></a>
-                    <a href="#contact" class="btn btn-outline-primary btn-lg ml-3">Devenir bénévole <i class="fas fa-users"></i></a>
+                    <a href="#contact" class="btn btn-accent btn-lg">Devenir partenaire <i
+                            class="fas fa-handshake"></i></a>
+                    <a href="#contact" class="btn btn-outline-primary btn-lg ml-3">Devenir bénévole <i
+                            class="fas fa-users"></i></a>
                 </div>
             </div>
         </div>
@@ -658,7 +751,8 @@
         <div class="container gallery-container">
             <div class="section-header">
                 <h2 class="section-title">Galerie</h2>
-                <p class="section-subtitle">Découvrez en images nos actions sur le terrain et l'impact de votre soutien.</p>
+                <p class="section-subtitle">Découvrez en images nos actions sur le terrain et l'impact de votre soutien.
+                </p>
             </div>
 
             <div class="gallery-grid">
@@ -706,7 +800,8 @@
             <div class="testimonial-slider">
                 <div class="testimonial-card animate-on-scroll">
                     <div class="testimonial-text">
-                        "Grâce au soutien d'Orphelin Priorité, j'ai pu reprendre mes études et aujourd'hui je suis en terminale. Je rêve de devenir médecin pour aider les autres comme on m'a aidé."
+                        "Grâce au soutien d'Orphelin Priorité, j'ai pu reprendre mes études et aujourd'hui je suis en
+                        terminale. Je rêve de devenir médecin pour aider les autres comme on m'a aidé."
                     </div>
                     <div class="testimonial-author">
                         <div class="author-img">
@@ -755,7 +850,8 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Nos Partenaires</h2>
-                <p class="section-subtitle">Des organisations qui nous font confiance et nous soutiennent dans notre mission.</p>
+                <p class="section-subtitle">Des organisations qui nous font confiance et nous soutiennent dans notre
+                    mission.</p>
             </div>
 
             <div class="partners-grid">
@@ -777,7 +873,8 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Contactez-nous</h2>
-                <p class="section-subtitle">Nous sommes à votre écoute pour répondre à vos questions, recevoir vos suggestions ou discuter de collaborations.</p>
+                <p class="section-subtitle">Nous sommes à votre écoute pour répondre à vos questions, recevoir vos
+                    suggestions ou discuter de collaborations.</p>
             </div>
 
             <div class="contact-container">
@@ -822,6 +919,7 @@
                 <div class="contact-form animate-on-scroll">
                     <h3>Envoyez-nous un message</h3>
                     <form id="contactForm">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label for="name" class="form-label">Nom complet</label>
                             <input type="text" id="name" class="form-control" placeholder="Votre nom complet" required>
@@ -829,7 +927,8 @@
 
                         <div class="form-group">
                             <label for="email" class="form-label">Adresse email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Votre adresse email" required>
+                            <input type="email" id="email" class="form-control" placeholder="Votre adresse email"
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -851,10 +950,12 @@
 
                         <div class="form-group">
                             <label for="message" class="form-label">Message</label>
-                            <textarea id="message" class="form-control" placeholder="Votre message" rows="5" required></textarea>
+                            <textarea id="message" class="form-control" placeholder="Votre message" rows="5"
+                                required></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Envoyer le message <i class="fas fa-paper-plane"></i></button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Envoyer le message <i
+                                class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
@@ -875,7 +976,8 @@
                             <p>~OP~ASBL~RDC</p>
                         </div>
                     </div>
-                    <p>Organisation communautaire dédiée à la protection, l'accompagnement et au développement des enfants orphelins et vulnérables en République Démocratique du Congo.</p>
+                    <p>Organisation communautaire dédiée à la protection, l'accompagnement et au développement des
+                        enfants orphelins et vulnérables en République Démocratique du Congo.</p>
 
                     <div class="social-icons">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -931,7 +1033,8 @@
             </div>
 
             <div class="copyright">
-                <p>&copy; 2023 Orphelin Priorité ASBL. Tous droits réservés. | Organisation à but non lucratif enregistrée en RDC</p>
+                <p>&copy; 2023 Orphelin Priorité ASBL. Tous droits réservés. | Organisation à but non lucratif
+                    enregistrée en RDC</p>
                 <p class="mt-2">Design et développement par l'équipe Orphelin Priorité</p>
             </div>
         </div>
@@ -957,10 +1060,16 @@
     <div class="modal gallery-modal" id="galleryModal">
         <div class="modal-content gallery-modal-content">
             <button type="button" class="modal-close" id="galleryModalClose" aria-label="Fermer">&times;</button>
-            <img id="galleryModalImg" class="gallery-modal-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Image de galerie">
+            <img id="galleryModalImg" class="gallery-modal-img"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+                alt="Image de galerie">
             <div id="galleryModalCaption" class="gallery-modal-caption"></div>
         </div>
-    
+
     </div>
+
+    <!-- JavaScript chargé à la fin pour assurer que le DOM est prêt -->
+    <script src="{% static 'js/test.js' %}"></script>
 </body>
+
 </html>

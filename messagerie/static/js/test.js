@@ -1,7 +1,8 @@
 // =====================================================================
 // VARIABLES GLOBALES
 // =====================================================================
-const API_BASE_URL = 'http://127.0.0.1:8000'; // Django default port
+// Note: On utilise des URLs relatives (ex: '/envoyer-contact/') au lieu d'URL absolues
+// car l'URL absolue '127.0.0.1' ne fonctionne pas sur téléphone mobile
 
 let preloader, header, mobileMenuBtn, navMenu, navLinks, dropdowns, backToTopBtn;
 let donationModal, modalClose, galleryModal, galleryModalClose, galleryModalImg, galleryModalCaption;
@@ -446,7 +447,7 @@ function handleProgramTabClick() {
 
 function handleNewsletterSubmit(e, input, btn) {
     e.preventDefault();
-    const email = input.value;
+    const email = input.value.trim();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -455,13 +456,35 @@ function handleNewsletterSubmit(e, input, btn) {
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         btn.disabled = true;
 
-        // Version temporaire - simulation
-        setTimeout(() => {
-            showToast(`Merci de vous être inscrit à notre newsletter avec l'adresse: ${email}`, 'success');
-            input.value = '';
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }, 1000);
+        // Envoyer au backend Django
+        fetch('/envoyer-newsletter/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCSRFToken() || ''
+            },
+            body: JSON.stringify({ email: email })
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    showToast(result.message || `Merci pour votre inscription!`, 'success');
+                    input.value = '';
+                } else if (result.status === 'warning') {
+                    showToast(result.message, 'warning');
+                } else {
+                    showToast(result.message || 'Erreur lors de l\'inscription.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur newsletter:', error);
+                showToast('Erreur de connexion au serveur.', 'error');
+            })
+            .finally(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
     } else {
         showToast('Veuillez entrer une adresse email valide.', 'error');
     }
