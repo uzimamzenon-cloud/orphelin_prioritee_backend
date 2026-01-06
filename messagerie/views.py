@@ -78,51 +78,60 @@ def enregistrer_message(request):
                 }, status=500)
 
             # B. ENVOI EMAIL (Asynchrone / Non-bloquant)
-            # On prépare le contenu
-            sujet_alerte = f"NOUVEAU CONTACT : {donnees.get('nom')}"
-            corps_du_mail = f"""
-            Bonjour Zenon,
-            
-            Un nouveau message a été reçu via le site web.
-            
-            DÉTAILS DU CONTACT :
-            --------------------
-            Nom     : {donnees.get('nom')}
-            Email   : {donnees.get('email')}
-            Sujet   : {donnees.get('sujet')}
-            Motif   : {donnees.get('motif')}
-            
-            MESSAGE :
-            ---------
-            {donnees.get('message')}
-            
-            --------------------
-            Note: Ce message est archivé dans la base de données Django.
-            """
-            
-            # Lancement du thread
-            admin_email = 'uzimamzenon@gmail.com' 
-            email_thread = threading.Thread(
-                target=send_email_background,
-                args=(sujet_alerte, corps_du_mail, admin_email, donnees.get('email'))
-            )
-            email_thread.daemon = True 
-            email_thread.start()
+            # On tente d'envoyer l'email, mais on ne bloque JAMAIS la réponse utilisateur
+            try:
+                # On prépare le contenu
+                sujet_alerte = f"NOUVEAU CONTACT : {donnees.get('nom')}"
+                corps_du_mail = f"""
+                Bonjour Zenon,
+                
+                Un nouveau message a été reçu via le site web.
+                
+                DÉTAILS DU CONTACT :
+                --------------------
+                Nom     : {donnees.get('nom')}
+                Email   : {donnees.get('email')}
+                Sujet   : {donnees.get('sujet')}
+                Motif   : {donnees.get('motif')}
+                
+                MESSAGE :
+                ---------
+                {donnees.get('message')}
+                
+                --------------------
+                Note: Ce message est archivé dans la base de données Django.
+                """
+                
+                # Lancement du thread
+                admin_email = 'uzimamzenon@gmail.com' 
+                email_thread = threading.Thread(
+                    target=send_email_background,
+                    args=(sujet_alerte, corps_du_mail, admin_email, donnees.get('email'))
+                )
+                email_thread.daemon = True 
+                email_thread.start()
+                logger.info("THREAD: Thread d'email lancé avec succès.")
 
-            # Réponse immédiate au client (Performance < 500ms)
+            except Exception as email_thread_error:
+                # SI L'ENVOI D'EMAIL ECHOUE (Thread creation, variables...), ON LOGGUE MAIS ON ENVOIE SUCCES AU USER
+                # C'est vital pour que l'utilisateur ne pense pas que son message est perdu.
+                logger.error(f"ERREUR NON-BLOQUANTE (Email): {str(email_thread_error)}")
+                logger.error(traceback.format_exc())
+
+            # C. REPONSE AU CLIENT (Toujours succès si DB OK)
             return JsonResponse({
                 "status": "success",
                 "message": "Message envoyé avec succès !",
-                "email_envoye": "processed_in_background" 
+                "email_envoye": "background"
             }, status=201)
 
         except Exception as e:
-            # Gestion globale des erreurs imprévues
+            # Gestion globale des erreurs (Uniquement si DB plante vraiment et n'est pas catchée avant)
             logger.error(f"ERREUR CRITIQUE VUE CONTACT: {str(e)}")
             logger.error(traceback.format_exc())
             return JsonResponse({
                 "status": "error",
-                "message": "Une erreur interne est survenue. Nos équipes ont été notifiées."
+                "message": "Une erreur interne est survenue, mais votre message a peut-être été enregistré."
             }, status=500)
             
     return JsonResponse({"message": "Méthode non autorisée"}, status=405)
