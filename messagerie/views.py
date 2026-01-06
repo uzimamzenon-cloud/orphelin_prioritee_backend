@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import MessageContact, Newsletter
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.conf import settings # Utiliser django.conf est plus propre
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -69,13 +69,14 @@ def enregistrer_message(request):
             Ce message est également enregistré dans ton tableau de bord Django.
             """
 
-                send_mail(
-                    sujet_alerte,
-                    corps_du_mail,
-                    settings.EMAIL_HOST_USER,  # L'expéditeur (ton compte Gmail)
-                    ['uzimamzenon@gmail.com'], # Le destinataire (ton Gmail personnel)
-                    fail_silently=False,      # Affiche l'erreur si le mail ne part pas
+                email = EmailMessage(
+                    subject=sujet_alerte,
+                    body=corps_du_mail,
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=['uzimamzenon@gmail.com'],
+                    reply_to=[donnees.get('email')],  # Permet de répondre directement à l'utilisateur
                 )
+                email.send(fail_silently=False)
                 email_envoye = True
                 print(f"Étape 2 : Email envoyé à {settings.EMAIL_HOST_USER}.")
             except Exception as email_error:
