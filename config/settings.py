@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
 
-# Construit les chemins à l'intérieur du projet (utile pour la base de données)
+# --- CHEMINS ---
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- SÉCURITÉ ---
 SECRET_KEY = 'django-insecure-cle-de-test-a-changer-en-production'
-DEBUG = True  # Laisse sur True pendant que tu apprends
-ALLOWED_HOSTS = ['*'] # Permet l'accès depuis n'importe quelle adresse en local
+DEBUG = True  # Repasse à False quand tu as fini de corriger
+ALLOWED_HOSTS = ['*']  # Autorise Render et ton PC local
 
 # --- APPLICATIONS ---
 INSTALLED_APPS = [
@@ -18,25 +18,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # Ton application est ici :
+    # Ton application
     'messagerie.apps.MessagerieConfig',
     
-    # Pour autoriser ton frontend (on installera le plugin juste après)
+    # Extensions indispensables
     'corsheaders',
+    'whitenoise.runserver_nostatic', # Aide au développement des fichiers static
 ]
 
-
-# --- MIDDLEWARE (L'ordre est important !) ---
+# --- MIDDLEWARE (L'ordre est très strict !) ---
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', # Doit être tout en haut
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'corsheaders.middleware.CorsMiddleware',  # Juste après security
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Pour les images en ligne
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -45,13 +44,13 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.template.context_processors.csrf',
+                'django.template.context_processors.csrf', # Ajouté pour la sécurité
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -61,8 +60,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# --- BASE DE DONNÉES ---
-# Par défaut, Django utilise SQLite (un fichier local, très simple pour débuter)
+# --- BASE DE DONNÉES (Configuration Intelligente) ---
+# Si tu es sur Render, il cherche PostgreSQL, sinon il utilise SQLite
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -70,43 +69,58 @@ DATABASES = {
     }
 }
 
+if 'RENDER' in os.environ:
+    import dj_database_url
+    db_from_env = dj_database_url.config(conn_max_age=600)
+    if db_from_env:
+        DATABASES['default'] = db_from_env
+
 # --- VALIDATION DES MOTS DE PASSE ---
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 # --- LANGUE ET TEMPS ---
-LANGUAGE_CODE = 'fr-fr' # Mis en français
+LANGUAGE_CODE = 'fr-fr'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# --- FICHIERS STATIQUES (CSS, JS) ---
+# --- FICHIERS STATIQUES (CSS, JS, IMAGES) ---
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Version moderne pour Django 5+ de WhiteNoise
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
-# --- CONFIGURATION CORS ---
-# Comme tu as un frontend, ceci autorise ton code frontend à parler au backend
+# --- CONFIGURATION CORS (Pour le JavaScript) ---
 CORS_ALLOW_ALL_ORIGINS = True 
-# Pour le développement local seulement
+CORS_ALLOW_CREDENTIALS = True
+
+# Confiance pour Render (Remplace par ton adresse plus tard)
+CSRF_TRUSTED_ORIGINS = [
+    'https://orphelin-prioritee-backend.onrender.com',
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+]
 
 # --- CONFIGURATION EMAIL (GMAIL) ---
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'uzimamzenon@gmail.com' # Ton Gmail
-#EMAIL_HOST_USER = 'uzimamzenon@gmail.com'
-#EMAIL_HOST_PASSWORD = '' # SANS les espaces
-
-# ICI : Colle les 16 lettres (SANS les espaces)
-EMAIL_HOST_PASSWORD = 'dktj wksi qcpk lewn ' 
-
-# L'email qui envoie (le même que celui du dessus)
+EMAIL_HOST_USER = 'uzimamzenon@gmail.com'
+# Rappel : Surtout ne mets pas ton code Gmail en PUBLIC sur GitHub !
+EMAIL_HOST_PASSWORD = 'dktj wksi qcpk lewn' 
 DEFAULT_FROM_EMAIL = 'uzimamzenon@gmail.com'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
