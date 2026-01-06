@@ -57,6 +57,40 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 // =====================================================================
+// FONCTION POUR ÉVITER LA PAGE RENDER - SOLUTION CRITIQUE
+// =====================================================================
+function checkAndPreventRenderPage() {
+    // Vérifier si nous sommes sur la page de chargement Render
+    const pageContent = document.body.innerHTML;
+    const isRenderLoadingPage = 
+        pageContent.includes('Render') || 
+        pageContent.includes('CHARGEMENT') || 
+        pageContent.includes('CHARGEMENT DE L\'APPLICATION') ||
+        pageContent.includes('21:03:45') ||
+        window.location.href.includes('onrender.com') ||
+        document.title.includes('Render');
+    
+    if (isRenderLoadingPage) {
+        console.log('Page de chargement Render détectée - Redirection vers le site principal');
+        
+        // 1. Recharger la page en forçant le cache
+        setTimeout(() => {
+            window.location.reload(true);
+        }, 500);
+        
+        // 2. Rediriger vers la page d'accueil si le rechargement échoue
+        setTimeout(() => {
+            if (document.body.innerHTML.includes('Render')) {
+                window.location.href = window.location.origin;
+            }
+        }, 1500);
+        
+        // 3. Empêcher l'exécution du reste du code
+        throw new Error('Render page detected - preventing execution');
+    }
+}
+
+// =====================================================================
 // FONCTIONS UTILITAIRES POUR CSRF TOKEN
 // =====================================================================
 function getCookie(name) {
@@ -82,6 +116,16 @@ function getCSRFToken() {
 // INITIALISATION - Attendre que le DOM soit chargé
 // =====================================================================
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM chargé - Initialisation du site');
+    
+    // Vérifier IMMÉDIATEMENT si on est sur la page Render
+    try {
+        checkAndPreventRenderPage();
+    } catch (e) {
+        console.warn(e.message);
+        return; // Arrêter l'exécution si on est sur Render
+    }
+    
     // Vérifier si on est sur mobile
     checkMobileView();
     
@@ -119,6 +163,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Retirer la classe no-js
     document.body.classList.remove('no-js');
+    
+    console.log('Site initialisé avec succès');
 });
 
 // =====================================================================
@@ -273,6 +319,9 @@ function handleWindowLoad() {
         
         // Optimiser les images après chargement complet
         setTimeout(optimizeTeamImages, 500);
+        
+        // Vérifier une dernière fois si on est sur Render
+        setTimeout(checkAndPreventRenderPage, 100);
     }, 1000);
 }
 
@@ -413,7 +462,7 @@ function handleNewsletterSubmit(e, input, btn) {
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         btn.disabled = true;
         
-        // Simulation pour le moment
+        // Version temporaire - simulation
         setTimeout(() => {
             showToast(`Merci de vous être inscrit à notre newsletter avec l'adresse: ${email}`, 'success');
             input.value = '';
@@ -427,8 +476,8 @@ function handleNewsletterSubmit(e, input, btn) {
 
 function handleOutsideClick(e) {
     // Mobile menu
-    const isMobile = window.innerWidth <= 992;
-    if (isMobile && navMenu && mobileMenuBtn && 
+    const isMobileView = window.innerWidth <= 992;
+    if (isMobileView && navMenu && mobileMenuBtn && 
         !navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
         navMenu.classList.remove('active');
         mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
@@ -1231,7 +1280,7 @@ function optimizeImpactFormForMobile(form) {
 }
 
 // =====================================================================
-// FONCTIONS POUR LES FORMULAIRES - VERSION SIMPLIFIÉE
+// FONCTIONS POUR LES FORMULAIRES - VERSION FONCTIONNELLE
 // =====================================================================
 function initForms() {
     initContactForm();
@@ -1243,24 +1292,34 @@ function initContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
     
+    // S'assurer que le formulaire a un CSRF token
+    if (!document.querySelector('[name=csrfmiddlewaretoken]')) {
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = getCSRFToken();
+        contactForm.appendChild(csrfInput);
+    }
+    
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const data = {
-            nom: document.getElementById('name')?.value,
-            email: document.getElementById('email')?.value,
-            sujet: document.getElementById('subject')?.value,
-            motif: document.getElementById('reason')?.value,
-            message: document.getElementById('message')?.value
-        };
+        // Récupérer les données du formulaire
+        const formData = new FormData(contactForm);
+        const csrfToken = getCSRFToken();
         
-        if (!data.nom || !data.email || !data.message) {
+        // Validation
+        const name = formData.get('name')?.trim() || '';
+        const email = formData.get('email')?.trim() || '';
+        const message = formData.get('message')?.trim() || '';
+        
+        if (!name || !email || !message) {
             showToast('Veuillez remplir tous les champs obligatoires.', 'error');
             return;
         }
         
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(data.email)) {
+        if (!emailRegex.test(email)) {
             showToast('Veuillez entrer une adresse email valide.', 'error');
             return;
         }
@@ -1271,35 +1330,31 @@ function initContactForm() {
         submitBtn.disabled = true;
         
         try {
-            // Solution temporaire : simulation d'envoi
-            // Remplace ce setTimeout par un vrai fetch() quand ta vue Django sera prête
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            showToast(`Merci ${data.nom}, votre message a bien été enregistré ! Nous vous répondrons dans les plus brefs délais.`, 'success');
-            contactForm.reset();
-            
-            // Pour l'envoi réel à Django, décommente ce code :
-            /*
-            const csrfToken = getCSRFToken();
-            const response = await fetch('/envoyer-contact/', {
+            // Envoi réel à Django
+            const response = await fetch('/contact/', {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
                     'X-CSRFToken': csrfToken,
                     'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: new URLSearchParams(data)
+                }
             });
             
-            const result = await response.json();
+            console.log('Réponse reçue:', response.status);
             
-            if (response.ok && result.success) {
-                showToast(`Merci ${data.nom}, votre message a bien été enregistré !`, 'success');
-                contactForm.reset();
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success) {
+                    showToast(`Merci ${name}, votre message a bien été enregistré dans la base de données !`, 'success');
+                    contactForm.reset();
+                } else {
+                    showToast(result.message || 'Erreur lors de l\'envoi.', 'error');
+                }
             } else {
-                showToast(result.message || 'Erreur lors de l\'envoi.', 'error');
+                const errorText = await response.text();
+                console.error('Erreur serveur:', errorText);
+                showToast('Erreur serveur. Code: ' + response.status, 'error');
             }
-            */
         } catch (error) {
             console.error('Erreur d\'envoi du formulaire:', error);
             showToast('Erreur de connexion au serveur. Veuillez réessayer plus tard.', 'error');
@@ -1865,3 +1920,8 @@ window.showDonationModal = showDonationModal;
 window.openGalleryModal = openGalleryModal;
 window.optimizeImpactFormForMobile = optimizeImpactFormForMobile;
 window.optimizeTeamImages = optimizeTeamImages;
+
+// Exécuter une vérification immédiate au chargement de la page
+window.addEventListener('load', function() {
+    setTimeout(checkAndPreventRenderPage, 100);
+});
