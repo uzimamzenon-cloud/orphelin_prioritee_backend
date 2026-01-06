@@ -918,44 +918,29 @@
 
                 <div class="contact-form animate-on-scroll">
                     <h3>Envoyez-nous un message</h3>
+                    <!-- ICI : Vérifie bien que l'id est contactForm -->
                     <form id="contactForm">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="name" class="form-label">Nom complet</label>
-                            <input type="text" id="name" class="form-control" placeholder="Votre nom complet" required>
-                        </div>
+                        <!-- ICI : id="name" -->
+                        <input type="text" id="name" class="form-control" required placeholder="Votre Nom">
 
-                        <div class="form-group">
-                            <label for="email" class="form-label">Adresse email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Votre adresse email"
-                                required>
-                        </div>
+                        <!-- ICI : id="email" -->
+                        <input type="email" id="email" class="form-control" required placeholder="Votre Email">
 
-                        <div class="form-group">
-                            <label for="subject" class="form-label">Sujet</label>
-                            <input type="text" id="subject" class="form-control" placeholder="Sujet du message">
-                        </div>
+                        <!-- ICI : id="subject" -->
+                        <input type="text" id="subject" class="form-control" placeholder="Sujet">
 
-                        <div class="form-group">
-                            <label for="reason" class="form-label">Motif de contact</label>
-                            <select id="reason" class="form-control" required>
-                                <option value="" disabled selected>Sélectionnez un motif</option>
-                                <option value="don">Demande d'information sur les dons</option>
-                                <option value="partnership">Proposition de partenariat</option>
-                                <option value="volunteer">Demande de bénévolat</option>
-                                <option value="information">Demande d'information générale</option>
-                                <option value="other">Autre</option>
-                            </select>
-                        </div>
+                        <!-- ICI : id="reason" (C'est ce qui manque souvent !) -->
+                        <select id="reason" class="form-control">
+                            <option value="Information">Demande d'info</option>
+                            <option value="Don">Faire un don</option>
+                            <option value="Partenariat">Proposition de partenariat</option>
+                        </select>
 
-                        <div class="form-group">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea id="message" class="form-control" placeholder="Votre message" rows="5"
-                                required></textarea>
-                        </div>
+                        <!-- ICI : id="message" -->
+                        <textarea id="message" class="form-control" required placeholder="Votre Message"></textarea>
 
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Envoyer le message <i
-                                class="fas fa-paper-plane"></i></button>
+                        <!-- TRÈS IMPORTANT : Le bouton doit être type="submit" -->
+                        <button type="submit" class="btn btn-primary btn-lg">Envoyer le message</button>
                     </form>
                 </div>
             </div>
