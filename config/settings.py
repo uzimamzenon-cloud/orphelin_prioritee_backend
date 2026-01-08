@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --- SÉCURITÉ ---
 SECRET_KEY = 'django-insecure-cle-de-test-a-changer-en-production'
 DEBUG = True  # Repasse à False quand tu as fini de corriger
-ALLOWED_HOSTS = ['orphelin-asbl.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 # --- APPLICATIONS ---
 INSTALLED_APPS = [
