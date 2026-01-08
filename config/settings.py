@@ -110,6 +110,7 @@ STORAGES = {
 # --- CONFIGURATION CORS (Pour le JavaScript) ---
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
+    'orphelin-asbl.onrender.com',
     "https://orphelin-prioritee-backend.onrender.com",
     "http://127.0.0.1:8000",
     "http://localhost:8000",
