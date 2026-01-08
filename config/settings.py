@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --- SÉCURITÉ ---
 SECRET_KEY = 'django-insecure-cle-de-test-a-changer-en-production'
 DEBUG = True  # Repasse à False quand tu as fini de corriger
-ALLOWED_HOSTS = ['orphelin-prioritee-backend.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['orphelin-asbl.onrender.com', '127.0.0.1', 'localhost']
 
 # --- APPLICATIONS ---
 INSTALLED_APPS = [
@@ -69,7 +69,8 @@ DATABASES = {
     }
 }
 
-if 'RENDER' in os.environ:
+if 'RENDER_EXTERNAL_HOSTNAME' in os.environ:
+    ALLOWED_HOSTS.append(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
     import dj_database_url
     print("--- RENDER ENVIRONMENT DETECTED ---")
     
@@ -112,7 +113,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'orphelin-asbl.onrender.com',
     "http://127.0.0.1:8000",
-    "http://localhost:8000",
+    #"http://localhost:8000",
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -131,7 +132,7 @@ CORS_ALLOW_HEADERS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://orphelin-asbl.onrender.com",
     'http://127.0.0.1:8000',
-    'http://localhost:8000',
+    #'http://localhost:8000',
 ]
 
 # --- SÉCURITÉ COOKIES (pour HTTPS sur Render) ---
