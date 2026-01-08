@@ -1,5 +1,5 @@
 # .gitignore
-.env
+.moenv
 __pycache__/
 *.pyc
 *.pyo
